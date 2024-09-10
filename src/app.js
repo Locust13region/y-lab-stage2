@@ -28,6 +28,9 @@ function App({ store }) {
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">{item.title}</div>
+                {!!item.wasSelected && (
+                  <div className="Item-title">Компонент выделялся {item.wasSelected} раз</div>
+                )}
                 <div className="Item-actions">
                   <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
                 </div>
