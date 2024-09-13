@@ -4,7 +4,10 @@
 class Store {
   constructor(initState = {}) {
     this.state = initState;
-    this.codeCounter = initState.list.length;
+    this.codeCounter = Math.max.apply(
+      null,
+      initState.list.map(i => i.code),
+    );
     this.listeners = []; // Слушатели изменений состояния
   }
 

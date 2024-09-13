@@ -7,6 +7,22 @@ import './styles.css';
  * @param store {Store} Состояние приложения
  * @returns {React.ReactElement}
  */
+
+function getEnding(n) {
+  n %= 100;
+  if (n >= 5 && n <= 20) {
+    return 'раз';
+  }
+  n %= 10;
+  if (n === 1) {
+    return 'раз';
+  }
+  if (n >= 2 && n <= 4) {
+    return 'раза';
+  }
+  return 'раз';
+}
+
 function App({ store }) {
   const list = store.getState().list;
   return (
@@ -26,10 +42,14 @@ function App({ store }) {
                 onClick={() => store.selectItem(item.code)}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
-                {!!item.wasSelected && (
-                  <div className="Item-title">Компонент выделялся {item.wasSelected} раз</div>
-                )}
+                <div className="Item-title">
+                  {item.title}{' '}
+                  {!!item.wasSelected && (
+                    <span>
+                      | Компонент выделялся {item.wasSelected} {getEnding(item.wasSelected)}
+                    </span>
+                  )}
+                </div>
                 <div className="Item-actions">
                   <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
                 </div>
